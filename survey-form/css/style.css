@@ -1,0 +1,57 @@
+* { margin: 0px; padding: 0px; }
+ul { list-style: none; }
+img { border: none; max-width: 100%; }
+body { color: #000; font-size: 14px; font-family: 'Montserrat', sans-serif; }
+.bgbrca { background: #fef1db; }
+.bripcalogo { max-width: 490px; margin: auto; margin-top: 80px; margin-bottom: 40px; display: block; }
+.vipca { max-width: 550px; margin: auto; margin-top: 60px; margin-bottom: 40px; display: block; }
+.borderline { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 15px;
+ padding: 18px 30px; padding-top: 20px; border: 1px solid #c9c6c6; border-top: 5px solid #f59f0d; }
+.borderline label { font-weight: 600; font-size: 17px; margin-bottom: 15px; display: inline; }
+.borderline span { color: red; font-size: 18px; }
+.border-acrross { border:1px solid #c9c6c6; }
+
+.partial { margin-top: 20px; }
+
+.partial label input[type="checkbox"] { width: 18px; height: 18px; margin-bottom: 0px; vertical-align: middle; margin-right: 10px; 
+position: absolute; left: 0; margin-top: 2px; }
+
+.partial label input[type="radio"] { width: 18px; height: 18px; margin-bottom: 0px; vertical-align: middle; margin-right: 10px;
+position: absolute; left: 0; margin-top: 2px; }
+
+.partial label input { width: 90%; display: inline; background: none; font-size: 16px; color: #000; border: none; 
+	border-bottom: 1px solid #bbb; outline: none; }
+.partial input { width: 90%; display: inline; background: none; font-size: 16px; color: #000; border: none; 
+	border-bottom: 1px solid #bbb; outline: none; }
+
+.partial2 input { width: 100%; background: none; font-size: 16px; color: #000; border: none; 
+	border-bottom: 1px solid #bbb; outline: none; }
+.partial2 input::-webkit-input-placeholder { font-size: 13px; }
+.vipcatable { display: table; }
+.vipcatable th { width: 200px; }
+.partial label { display: block; position: relative; color: #000; font-size: 16px; font-weight: 400; vertical-align: middle; 
+padding: 0 30px; font-family: 'Poppins', sans-serif; }
+.submitbtn { max-width: 700px; margin: auto; }
+.submitbtn input[type="submit"] { width: 18%; height: 45px; display: block; background: #d45300;
+    color: #fff; font-size: 16px; border: none; border-radius: 5px; margin-bottom: 150px; }
+.ipca-innovexx input[type="submit"] { width: 13%; background: #fff; box-shadow: 0 2px 5px #bbb; color: #333; }    
+.firstcol { width: 205px; }    
+
+.pregabalin th { padding-bottom: 8px; }
+.bgcolor1 { background: #f8f9fa; border-bottom: 5px solid #fff; }
+.bgcolor1 td { padding: 10px 10px; font-weight: 600; }
+.pregabalin td input { width: 18px; height: 18px; }
+
+.pregaweek { margin-top: 15px; }
+.pregaweek th { width: 165px; }
+
+
+@media(max-width: 575.98px){
+.bripcalogo { width: 100%; margin-top: 30px; }	
+.submitbtn input[type="submit"] { width: 28%; margin: auto; }
+/*****END****/
+/*****Vipca****/
+.pregabalin th:nth-child(1) { width: 55px; position: sticky; left: 0px; background: #fff; box-shadow: 5px 0 5px 1px #e0e0e0; }
+.pregabalin td:nth-child(1) { width: 55px; position: sticky; left: 0px; background: #fff; box-shadow: 5px 0 5px 1px #e0e0e0; }
+.vipca { width: 100%; }
+}
