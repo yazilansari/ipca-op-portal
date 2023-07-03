@@ -4,10 +4,12 @@ include 'conn.php';
 if (isset($_POST['submit'])) {
 	
 	$username = $_POST['username'];
-	$password = $_POST['pass'];
+	// $password = $_POST['pass'];
+	$division = $_POST['division'];
 	
-	if ($username === 'admin' && $password == 'admin') {
+	if ($username === 'admin') {
 		$_SESSION['user'] = $username;
+		$_SESSION['division'] = $division;
 		header('Location: ../pages/charts/drdetails.php?Successfully Login');
 	} else {
 		header('Location: ../index.php?msg=Unable to Login');

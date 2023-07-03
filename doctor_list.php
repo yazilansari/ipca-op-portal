@@ -164,8 +164,8 @@ th, td { text-align: center; }
             <th>Address</th>        
             <th>Speciality</th>        
             <th>SBU Code</th>        
-            <th>Visiting First Date</th>        
-            <th>Visiting Second Date</th>                      
+            <th>Request Date</th>    
+            <!-- <th>Visiting Second Date</th> -->
             <th>Monthly Support Value</th> 
             <th>Targetted Brand</th>
             <th>Head Quarters</th>
@@ -180,25 +180,44 @@ th, td { text-align: center; }
             $res = mysqli_query($conn, $q);
             $count = 1;
             if(mysqli_num_rows($res) > 0) {
-              while ($row = mysqli_fetch_assoc($res)) { ?>
+              while ($row = mysqli_fetch_assoc($res)) {
+                $brands = [];
+                $q14 = "SELECT `brand` FROM survey_forms WHERE dr_id='".$row['id']."' GROUP BY `brand`";
+                $res14 = mysqli_query($conn, $q14);
+                $survey_forms = [];
+                while ($row2 = mysqli_fetch_assoc($res14)) {
+                  $survey_forms[] = $row2;
+                }
+                $expl_brands = explode('|', $row['brand']);
+                // echo "<pre>";print_r($survey_forms);
+                // echo count($survey_forms);
+                ?>
                 <tr>
                   <td class="first_td"><?php echo $count; ?></td>
-                  <td class="">            
-                  <a href="edit-field.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"><i class="far fa-edit"></i> Edit</button></a><br><br>
-                  <a href="#"><button type="button" class="btn btn-secondary"><i class="far fa-envelope"></i> Send Email</button></a> 
+                  <td class="">
+                    <?php if(count($survey_forms) == count($expl_brands)) { ?>
+                      <a href="#"><button disabled type="button" class="btn btn-primary"><i class="far fa-edit"></i> Edit</button></a><br><br>
+                    <?php } else { ?>
+                      <a href="edit-field.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"><i class="far fa-edit"></i> Edit</button></a><br><br>
+                    <?php } ?>
+                  <a href="#" data-toggle="modal" data-target="#email_form<?php echo $row['id'];?>"><button type="button" class="btn btn-secondary"><i class="far fa-envelope"></i> Send Email</button></a> 
                   </td>                               
                   <td class="font-weight-bold"><?php echo ucfirst($row['status']); ?></td>
-                  <td class="font-weight-bold"></td>
+                  <td class="font-weight-bold"><?php echo ucfirst($row['payment_status']); ?></td>
                   <td class="">
                     <?php
-                      $expl_brands = explode('|', $row['brand']);
+                      // $expl_brands = explode('|', $row['brand']);
+                      // echo count($expl_brands);
                       foreach ($expl_brands as $key => $value) {
                         if($value == 'BRIPCA') { 
                           // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'BRIPCA'";
                           $q2 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'BRIPCA'";
                           $res2 = mysqli_query($conn, $q2);
                           $count = mysqli_num_rows($res2); 
-                          if($count <= 0) { ?>
+                          if($count <= 0) { 
+                            $bripca_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/bripca.php?id='.base64_encode($row['id']);
+                            array_push($brands, $bripca_mail);
+                            ?>
                             <a href="survey-form/bripca.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit BRIPCA Form</button></a><br><br>
                       <?php } else { ?>
                           <h6 style="color: red;">Submitted BRIPCA Form</h6><br>
@@ -207,91 +226,124 @@ th, td { text-align: center; }
                                 $q3 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PEG NT'";
                                 $res3 = mysqli_query($conn, $q3);
                                 $count2 = mysqli_num_rows($res3); 
-                                if($count2 <= 0) { ?>
+                                if($count2 <= 0) { 
+                                  $pegnt_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/peg-nt.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $pegnt_mail);
+                                  ?>
                                   <a href="survey-form/peg-nt.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit PEG NT Form</button></a><br><br>
-                      <?php }  else { ?>
+                      <?php } else { ?>
                           <h6 style="color: red;">Submitted PEG NT Form</h6><br>
                       <?php } } if ($value == 'RECITA') {
                                 // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'RECITA'";
                                 $q4 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'RECITA'";
                                 $res4 = mysqli_query($conn, $q4);
                                 $count3 = mysqli_num_rows($res4); 
-                                if($count3 <= 0) { ?>
+                                if($count3 <= 0) { 
+                                  $recita_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/recita.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $recita_mail);
+                                  ?>
                                   <a href="survey-form/recita.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit RECITA Form</button></a><br><br>
-                      <?php }  else { ?>
+                      <?php } else { ?>
                           <h6 style="color: red;">Submitted RECITA Form</h6><br>
                       <?php } } if ($value == 'VIPCA') {
                                 // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'VIPCA'";
                                 $q5 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'VIPCA'";
                                 $res5 = mysqli_query($conn, $q5);
                                 $count4 = mysqli_num_rows($res5); 
-                                if($count4 <= 0) { ?>
+                                if($count4 <= 0) { 
+                                  $vipca_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/vipca.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $vipca_mail);
+                                  ?>
                                   <a href="survey-form/vipca.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit VIPCA Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted VIPCA Form</h6><br>
                     <?php } } if ($value == 'PARI COMBO') {
                                 $q6 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PARI COMBO'";
                                 $res6 = mysqli_query($conn, $q6);
                                 $count5 = mysqli_num_rows($res6); 
-                                if($count5 <= 0) { ?>
+                                if($count5 <= 0) { 
+                                  $paricombo_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/pari-combo.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $paricombo_mail);
+                                  ?>
                                   <a href="survey-form/pari-combo.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit PARI COMBO Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted PARI COMBO Form</h6><br>
                     <?php } } if ($value == 'PARI CR PLUS') {
                                 $q7 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PARI CR PLUS'";
                                 $res7 = mysqli_query($conn, $q7);
                                 $count6 = mysqli_num_rows($res7); 
-                                if($count6 <= 0) { ?>
+                                if($count6 <= 0) { 
+                                  $paricrplus_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/pari-cr-plus.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $paricrplus_mail);
+                                  ?>
                                   <a href="survey-form/pari-cr-plus.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit PARI CR PLUS Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted PARI CR PLUS Form</h6><br>
                     <?php } } if ($value == 'SOVE') {
                                 $q8 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'SOVE'";
                                 $res8 = mysqli_query($conn, $q8);
                                 $count7 = mysqli_num_rows($res8); 
-                                if($count7 <= 0) { ?>
+                                if($count7 <= 0) { 
+                                  $sove_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/sove.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $sove_mail);
+                                  ?>
                                   <a href="survey-form/sove.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit SOVE Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted SOVE Form</h6><br>
                     <?php } } if ($value == 'EPICTAL') {
                                 $q9 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'EPICTAL'";
                                 $res9 = mysqli_query($conn, $q9);
                                 $count8 = mysqli_num_rows($res9); 
-                                if($count8 <= 0) { ?>
+                                if($count8 <= 0) {
+                                  $epictal_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/epictal.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $epictal_mail);
+                                  ?>
                                   <a href="survey-form/epictal.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit EPICTAL Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted EPICTAL Form</h6><br>
                     <?php } } if ($value == 'PEG SR') {
                                 $q10 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PEG SR'";
                                 $res10 = mysqli_query($conn, $q10);
                                 $count9 = mysqli_num_rows($res10); 
-                                if($count9 <= 0) { ?>
+                                if($count9 <= 0) { 
+                                  $pegsr_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/pegsr.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $pegsr_mail);
+                                  ?>
                                   <a href="survey-form/pegsr.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit PEG SR Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted PEG SR Form</h6><br>
                     <?php } } if ($value == 'QUEL') {
                                 $q11 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'QUEL'";
                                 $res11 = mysqli_query($conn, $q11);
                                 $count10 = mysqli_num_rows($res11); 
-                                if($count10 <= 0) { ?>
+                                if($count10 <= 0) { 
+                                  $quel_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/quel.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $quel_mail);
+                                  ?>
                                   <a href="survey-form/quel.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit QUEL Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted QUEL Form</h6><br>
                     <?php } } if ($value == 'PEG D') {
                                 $q12 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PEG D'";
                                 $res12 = mysqli_query($conn, $q12);
                                 $count11 = mysqli_num_rows($res12); 
-                                if($count11 <= 0) { ?>
+                                if($count11 <= 0) { 
+                                  $pegd_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/pegd.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $pegd_mail);
+                                  ?>
                                   <a href="survey-form/pegd.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit PEG D Form</button></a><br><br>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted PEG D Form</h6><br>
                     <?php } } if ($value == 'CITINOVA') {
                                 $q13 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'CITINOVA'";
                                 $res13 = mysqli_query($conn, $q13);
                                 $count12 = mysqli_num_rows($res13); 
-                                if($count12 <= 0) { ?>
+                                if($count12 <= 0) { 
+                                  $citinova_mail = 'https://digielvestech.in/ipca-op-portal/survey-form/citinova.php?id='.base64_encode($row['id']);
+                                  array_push($brands, $citinova_mail);
+                                  ?>
                                   <a href="survey-form/citinova.php?id=<?php echo base64_encode($row['id']); ?>"><button type="button" class="btn btn-primary"> Submit CITINOVA Form</button></a>
-                    <?php }  else { ?>
+                    <?php } else { ?>
                           <h6 style="color: red;">Submitted CITINOVA Form</h6><br>
                     <?php } } } ?>
                   </td>
@@ -309,16 +361,64 @@ th, td { text-align: center; }
                   <td><?php echo $row['doc_email']; ?></td>
                   <td><?php echo $row['doc_add']; ?></td>
                   <td><?php echo $row['doc_speciality']; ?></td>          
-                  <td><?php echo $row['doc_region']; ?></td>          
-                  <td><?php echo date('d-m-Y', strtotime($row['first_date'])); ?></td>                    
-                  <td><?php echo date('d-m-Y', strtotime($row['second_date'])); ?></td>                    
+                  <td><?php echo $row['doc_sbu_code']; ?></td>          
+                  <td><?php echo date('d-m-Y', strtotime($row['request_date'])); ?></td>                    
+                  <!-- <td><?php echo date('d-m-Y', strtotime($row['second_date'])); ?></td> -->
                   <td><?php echo $row['monthly_support']; ?></td>                    
                   <td><?php echo $row['targetted_brand']; ?></td>
                   <td><?php echo $row['head_quarters']; ?></td>                    
                   <td><?php echo $row['payment_mode']; ?></td>                    
                   <td><?php echo $row['created_at']; ?></td>
                   <td><?php echo $row['updated_at']; ?></td>                                        
-                </tr>                               
+                </tr>
+
+                <div class="modal fade" id="email_form<?php echo $row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                      <h5 class="modal-title" id="exampleModalLabel">Send Email</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form method="POST" action="handler/email.php">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="name">From Name</label>
+                          <input type="text" class="form-control" name="name" id="name" placeholder="Enter From Name" required>
+                          <!-- <input type="hidden" name="temp" value="images/downloads/<?php  echo $download_temp; ?>"> -->
+                        </div>
+                          <!-- <div class="row" id="to_container"> -->
+                              <!-- <div class="col-md-10"> -->
+                                  <div class="form-group">
+                                      <label for="to">Email To</label>
+                                      <input type="email" class="form-control" name="to[]" id="to" placeholder="Enter Email To" value="<?php echo $row['doc_email'];?>" required>
+                                  </div>
+                              <!-- </div> -->
+                              <!-- <div class="col-md-2">
+                                  <div class="form-group">
+                                      <label style="visibility: hidden;">Add</label>
+                                      <button type="button" class="btn btn-info"  id="add">Add</button>
+                                  </div>
+                              </div> -->
+                          <!-- </div> -->
+                        <div class="form-group">
+                          <label for="subject">Email Subject</label>
+                          <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter Email Subject" value="Submit Survey Forms" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="body">Email Body</label>
+                          <textarea class="form-control" id="body" name="body" placeholder="Enter Email Body" rows=8 readonly required><?php echo implode(' || ', $brands); ?></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer border-top-0 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
               <?php $count++; } } ?>
         </tbody>
       </table>

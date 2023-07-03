@@ -37,7 +37,12 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="pass" placeholder="Password" required>
+          <!-- <input type="password" class="form-control" name="pass" placeholder="Password" required> -->
+          <select class="form-control" name="division" required="">
+            <option value="">Select Division</option>
+            <option>Innova</option>                 
+            <option>Innovex</option>                  
+          </select>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

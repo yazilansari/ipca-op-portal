@@ -131,7 +131,7 @@ include '../nav.php';
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Question & Answers</h1>
+            <h1>Doctor List</h1>
           </div>
           <div class="col-sm-6">
           
@@ -148,13 +148,13 @@ include '../nav.php';
 
 
   <!-- Content Wrapper. Contains page content -->
- <div class="card">
-              <div class="card-header">
+                  <div class="card">
+              <!-- <div class="card-header">
                 <h3 class="card-title">Questions</h3>
                   
-              </div>
+              </div> -->
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body table-responsive">
                 <table id="myTable" class="table table-bordered table-striped">
                   <!-- <input type="text" name="search" id="myInput" class="form-control w-25 m-2 float-right " placeholder="Search Contain"> -->
                              <?php 
@@ -169,23 +169,32 @@ include '../nav.php';
                   <tr>
                     <th>Sr.</th>
                     <th>Action </th>
-                    <th>Status</th>
+                    <th>Zone </th>
+                    <th>Region </th>
+                    <th>HQ </th>
+                    <th>Activity Name</th>
+                    <th>View Activity</th>
+                    <th>Amt</th>
+                    <th>Qty</th>
+                    <th>Emp Code </th>
+                    <th>Dr Name </th>
+                    <th>SBU Code </th>
+                    <th>Speciality </th>
+                    <th>Email </th>
+                    <th>Mobile </th>
+                    <th>Approval Status</th>
+                    <th>Payment Status</th>
                     <th>Pan File</th>
                     <th>Cheque File</th>
-                    <th>Emp Code </th>
-                    <th>Name </th>
-                    <th>Mobile </th>
-                    <th>Email </th>
-                    <th>Address </th>
-                    <th>Speciality </th>
-                    <th>Region </th>
-                    <th>First Date </th>
-                    <th>Second Date </th>
-                    <th>Brands</th>
-                    <th>Monthly Support</th>
-                    <th>Targetted Brand</th>
+                    <th>Division</th>
+                    <!-- <th>Address </th> -->
+                    <th>Request Date </th>
+                    <!-- <th>Second Date </th> -->
+                    <!-- <th>Monthly Support</th> -->
+                    <!-- <th>Targetted Brand</th> -->
                     <th>Head Quarters</th>
                     <th>Payment Mode</th>
+                    <th>Remark</th>
                     <th>Created At</th>        
                     <th>Updated At</th>
                   </tr>
@@ -196,9 +205,9 @@ include '../nav.php';
 <?php 
 
 
-
+$division = $_SESSION['division'];
 // $results_per_page = 10;
-$sess_fetch="SELECT * FROM `dr_details` ORDER BY `id` DESC";
+$sess_fetch="SELECT *, `dr_details`.`id` as id FROM `dr_details` LEFT JOIN `employees_ipca` ON `employees_ipca`.`emp_no` = `dr_details`.`emp_code` WHERE `division` = '$division' ORDER BY `dr_details`.`id` DESC";
 // $sess_final2=mysqli_query($conn,$sess_fetch);
 
 // $number_of_results = mysqli_num_rows($sess_final2);
@@ -216,50 +225,198 @@ $num=1;
 // $sql="SELECT * FROM iccc2021_questions LIMIT "   . $this_page_first_result . ',' .  $results_per_page;
 $result = mysqli_query($conn, $sess_fetch);
 while ($data=mysqli_fetch_array($result)) {
-
+  $html = '';
+  $expl_brands = explode('|', $data['brand']);
+  // echo "<pre>";print_r($survey_forms);
+  // echo count($survey_forms);
+  // $expl_brands = explode('|', $row['brand']);
+  // echo count($expl_brands);
+  foreach ($expl_brands as $key => $value) {
+    if($value == 'BRIPCA') {
+      // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'BRIPCA'";
+      $q2 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'BRIPCA'";
+      $res2 = mysqli_query($conn, $q2);
+      $count = mysqli_num_rows($res2); 
+      if($count <= 0) { 
+        $html .='<h6 style="color: red;">Not Submitted BRIPCA Form</h6><br>';
+      } else { 
+        $html .='<a href="#"><button type="button" class="btn btn-primary"> View BRIPCA Form</button></a><br><br>';
+      }
+    }
+    if ($value == 'PEG NT') {
+      // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'PEG NT'";
+      $q3 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'PEG NT'";
+      $res3 = mysqli_query($conn, $q3);
+      $count2 = mysqli_num_rows($res3); 
+      if($count2 <= 0) {
+        $html .='<h6 style="color: red;">Not Submitted PEG NT Form</h6><br>';
+      } else {
+        $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG NT Form</button></a><br><br>';
+      }
+    }
+    if ($value == 'RECITA') {
+      // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'RECITA'";
+      $q4 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'RECITA'";
+      $res4 = mysqli_query($conn, $q4);
+      $count3 = mysqli_num_rows($res4); 
+      if($count3 <= 0) { 
+        $html .='<h6 style="color: red;">Not Submitted RECITA Form</h6><br>';
+      } else {
+        $html .='<a href=""><button type="button" class="btn btn-primary"> View RECITA Form</button></a><br><br>';
+      }
+      }
+      if ($value == 'VIPCA') {
+        // echo "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$row['id']." AND `brand` = 'VIPCA'";
+        $q5 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'VIPCA'";
+        $res5 = mysqli_query($conn, $q5);
+        $count4 = mysqli_num_rows($res5); 
+        if($count4 <= 0) { 
+          $html .='<h6 style="color: red;">Not Submitted VIPCA Form</h6><br>';
+      } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View VIPCA Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'PARI COMBO') {
+        $q6 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'PARI COMBO'";
+        $res6 = mysqli_query($conn, $q6);
+        $count5 = mysqli_num_rows($res6); 
+        if($count5 <= 0) { 
+          $html .='<h6 style="color: red;">Not Submitted PARI COMBO Form</h6><br>';
+        } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View PARI COMBO Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'PARI CR PLUS') {
+        $q7 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'PARI CR PLUS'";
+        $res7 = mysqli_query($conn, $q7);
+        $count6 = mysqli_num_rows($res7); 
+        if($count6 <= 0) {
+          $html .='<h6 style="color: red;">Not Submitted PARI CR PLUS Form</h6><br>';
+        } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View PARI CR PLUS Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'SOVE') {
+        $q8 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'SOVE'";
+        $res8 = mysqli_query($conn, $q8);
+        $count7 = mysqli_num_rows($res8); 
+        if($count7 <= 0) {
+          $html .='<h6 style="color: red;">Not Submitted SOVE Form</h6><br>';
+        } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View SOVE Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'EPICTAL') {
+        $q9 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'EPICTAL'";
+        $res9 = mysqli_query($conn, $q9);
+        $count8 = mysqli_num_rows($res9); 
+        if($count8 <= 0) {
+            $html .='<h6 style="color: red;">Not Submitted EPICTAL Form</h6><br>';
+        } else {
+            $html .='<a href=""><button type="button" class="btn btn-primary"> View EPICTAL Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'PEG SR') {
+        $q10 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'PEG SR'";
+        $res10 = mysqli_query($conn, $q10);
+        $count9 = mysqli_num_rows($res10); 
+        if($count9 <= 0) {
+          $html .='<h6 style="color: red;">Not Submitted PEG SR Form</h6><br>';
+      } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG SR Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'QUEL') {
+        $q11 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'QUEL'";
+        $res11 = mysqli_query($conn, $q11);
+        $count10 = mysqli_num_rows($res11); 
+        if($count10 <= 0) { 
+            $html .='<h6 style="color: red;">Not Submitted QUEL Form</h6><br>';
+        } else {
+            $html .='<a href=""><button type="button" class="btn btn-primary"> View QUEL Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'PEG D') {
+        $q12 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'PEG D'";
+        $res12 = mysqli_query($conn, $q12);
+        $count11 = mysqli_num_rows($res12); 
+        if($count11 <= 0) { 
+            $html .='<h6 style="color: red;">Not Submitted PEG D Form</h6><br>';
+        } else {
+            $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG D Form</button></a><br><br>';
+        }
+      }
+      if ($value == 'CITINOVA') {
+        $q13 = "SELECT * FROM `survey_forms` WHERE `dr_id` = ".$data['id']." AND `brand` = 'CITINOVA'";
+        $res13 = mysqli_query($conn, $q13);
+        $count12 = mysqli_num_rows($res13); 
+        if($count12 <= 0) { 
+          $html .='<h6 style="color: red;">Not Submitted CITINOVA Form</h6><br>';
+      } else {
+          $html .='<a href=""><button type="button" class="btn btn-primary"> View CITINOVA Form</button></a>';
+       }
+     }
+   }
 
     $id = $data['id'];
+    $zone = $data['zone'];
+    $region = $data['region'];
+    $hq = $data['hq'];
+    $amt = $data['monthly_support'];
+    $qty = 1;
     $emp_code = $data['emp_code'];
     $name = $data['doc_name'];
     $mobile = $data['doc_mobile'];
     $email = $data['doc_email'];
-    $add = $data['doc_add'];
+    // $add = $data['doc_add'];
     $speciality = $data['doc_speciality'];
-    $region = $data['doc_region'];
-    $first_date = $data['first_date'];
-    $second_date = $data['second_date'];
-    $brands = $data['brand'];
-    $monthly_support = $data['monthly_support'];
-    $targetted_brand = $data['targetted_brand'];
+    $sbu_code = $data['doc_sbu_code'];
+    $request_date = $data['request_date'];
+    // $second_date = $data['second_date'];
+    $brands = implode(', ', explode('|', $data['brand']));
+    // $monthly_support = $data['monthly_support'];
+    // $targetted_brand = $data['targetted_brand'];
     $head_quarters = $data['head_quarters'];
     $payment_mode = $data['payment_mode'];
     $pan_file = $data['pan_file'];
     $cheque_file = $data['cheque_file'];
-    $status = $data['status'];
+    $division = $data['division'];
+    $status = ucfirst($data['status']);
+    $payment_status = ucfirst($data['payment_status']);
+    $remark = $data['remark'];
     $created_at = $data['created_at'];
     $updated_at = $data['updated_at'];
 
+    // <td>".date('d-m-Y', strtotime($second_date))."</td>
+    // <td>$add</td>
+    // <td>$targetted_brand</td>
+    // <td>$monthly_support</td>
     echo "
         <tr>
           <td>$num</td>
-          <td><a href='../../handler/action.php?id=$id&type=approved'><i class='fa fa-check text-dark' aria-hidden='true'></i> </a>| <a href='../../handler/action.php?id=$id&type=rejected'><i class='fa fa-ban text-dark' aria-hidden='true'></i></a></td>
-          <td>$status</td>
-          <td><a href='../../../docs/$pan_file' download>$pan_file</a></td>
-          <td><a href='../../../docs/$cheque_file' download>$cheque_file</a></td>
+          <td><a title='Approve' href='../../handler/action.php?id=$id&type=approved'><i class='fa fa-check text-dark' aria-hidden='true'></i> </a>| <a title='Reject' href='../../handler/action.php?id=$id&type=rejected'><i class='fa fa-ban text-dark' aria-hidden='true'></i></a><br><a title='Edit' href='edit.php?id=$id'><i class='fa fa-edit text-dark' aria-hidden='true'></i></a></td>
+          <td>$zone</td>
+          <td>$region</td>
+          <td>$hq</td>
+          <td>$brands</td>
+          <td>$html</td>
+          <td>$amt</td>
+          <td>$qty</td>
           <td>$emp_code</td>
           <td>$name</td>
-          <td>$mobile</td>
-          <td>$email</td>
-          <td>$add</td>
+          <td>$sbu_code</td>
           <td>$speciality</td>
-          <td>$region</td>
-          <td>".date('d-m-Y', strtotime($first_date))."</td>
-          <td>".date('d-m-Y', strtotime($second_date))."</td>
-          <td>$brands</td>
-          <td>$monthly_support</td>
-          <td>$targetted_brand</td>
+          <td>$email</td>
+          <td>$mobile</td>
+          <td>$status</td>
+          <td>$payment_status</td>
+          <td><a href='../../../docs/$pan_file' download>$pan_file</a></td>
+          <td><a href='../../../docs/$cheque_file' download>$cheque_file</a></td>
+          <td>$division</td>
+          <td>".date('d-m-Y', strtotime($request_date))."</td>
           <td>$head_quarters</td>
           <td>$payment_mode</td>
+          <td>$remark</td>
           <td>$created_at</td>
           <td>$updated_at</td>
         </tr>";

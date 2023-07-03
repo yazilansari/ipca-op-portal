@@ -160,7 +160,7 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 										<input type="text" placeholder="Speciality" name="doc_speciality" value="<?php echo $row['doc_speciality']; ?>" required="">
 									</div><!-----Speciality----->	
 									<div class="col-md-6 col-sm-12 userlogin">
-										<input type="text" placeholder="SBU Code" name="doc_region" value="<?php echo $row['doc_region']; ?>" required="">
+										<input type="text" placeholder="SBU Code" name="doc_sbu_code" value="<?php echo $row['doc_sbu_code']; ?>" required="">
 									</div><!---SBU-Code-->	
 
 

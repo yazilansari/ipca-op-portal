@@ -9,7 +9,8 @@ if (isset($_POST['submit'])) {
     $doc_email = $_POST["doc_email"];
     $doc_add = $_POST["doc_add"];
     $doc_speciality = $_POST["doc_speciality"];
-    $doc_region = $_POST["doc_region"];
+    // $doc_region = $_POST["doc_region"];
+    $doc_sbu_code = $_POST["doc_sbu_code"];
     $request_date = date('Y-m-d', strtotime($_POST["request_date"]));
     // $second_date = date('Y-m-d', strtotime($_POST["second_date"]));
     $brand = $_POST["brand"];
@@ -46,9 +47,9 @@ if (isset($_POST['submit'])) {
     $chequefilename = $doc_name. '_'.implode('_', $brand).'_cheque.'.end($temp);
     move_uploaded_file($_FILES["cheque_file"]["tmp_name"], "../docs/" . $chequefilename);
 
-    // echo "INSERT INTO `dr_details`(`emp_code`, `doc_name`, `doc_mobile`, `doc_email`, `doc_add`, `doc_speciality`, `doc_region`, `first_date`, `second_date`, `brand`, `monthly_support`, `targetted_brand`, `head_quarters`, `payment_mode`, `pan_file`, `cheque_file`, `status`, `created_at`) VALUES ('".$_SESSION['emp_code']."', '$doc_name', '$doc_mobile', '$doc_email', '$doc_add', '$doc_speciality', '$doc_region', '$first_date', '$second_date', '".implode('|', $brand)."', '$monthly_support', '$targetted_brand', '$head_quarters', '$payment_mode', '$panfilename', '$chequefilename', 'Pending', '".date("Y-m-d H:i:s")."')";die();
+    // echo "INSERT INTO `dr_details`(`emp_code`, `doc_name`, `doc_mobile`, `doc_email`, `doc_add`, `doc_speciality`, `doc_sbu_code`, `first_date`, `second_date`, `brand`, `monthly_support`, `targetted_brand`, `head_quarters`, `payment_mode`, `pan_file`, `cheque_file`, `status`, `created_at`) VALUES ('".$_SESSION['emp_code']."', '$doc_name', '$doc_mobile', '$doc_email', '$doc_add', '$doc_speciality', '$doc_sbu_code', '$first_date', '$second_date', '".implode('|', $brand)."', '$monthly_support', '$targetted_brand', '$head_quarters', '$payment_mode', '$panfilename', '$chequefilename', 'Pending', '".date("Y-m-d H:i:s")."')";die();
 
-    $num = "INSERT INTO `dr_details`(`emp_code`, `division`, `doc_name`, `doc_mobile`, `doc_email`, `doc_add`, `doc_speciality`, `doc_region`, `request_date`, `brand`, `monthly_support`, `targetted_brand`, `head_quarters`, `payment_mode`, `pan_file`, `cheque_file`, `status`, `created_at`) VALUES ('".$_SESSION['emp_code']."', '".$_SESSION['division']."', '$doc_name', '$doc_mobile', '$doc_email', '$doc_add', '$doc_speciality', '$doc_region', '$request_date', '".implode('|', $brand)."', '$monthly_support', '$targetted_brand', '$head_quarters', '$payment_mode', '$panfilename', '$chequefilename', 'Pending', '".date("Y-m-d H:i:s")."')";
+    $num = "INSERT INTO `dr_details`(`emp_code`, `division`, `doc_name`, `doc_mobile`, `doc_email`, `doc_add`, `doc_speciality`, `doc_sbu_code`, `request_date`, `brand`, `monthly_support`, `targetted_brand`, `head_quarters`, `payment_mode`, `pan_file`, `cheque_file`, `status`, `created_at`) VALUES ('".$_SESSION['emp_code']."', '".$_SESSION['division']."', '$doc_name', '$doc_mobile', '$doc_email', '$doc_add', '$doc_speciality', '$doc_sbu_code', '$request_date', '".implode('|', $brand)."', '$monthly_support', '$targetted_brand', '$head_quarters', '$payment_mode', '$panfilename', '$chequefilename', 'Pending', '".date("Y-m-d H:i:s")."')";
 
     $num_final = mysqli_query($conn, $num);
 
@@ -68,7 +69,7 @@ if (isset($_POST['submit'])) {
     $doc_email = $_POST["doc_email"];
     $doc_add = $_POST["doc_add"];
     $doc_speciality = $_POST["doc_speciality"];
-    $doc_region = $_POST["doc_region"];
+    $doc_sbu_code = $_POST["doc_sbu_code"];
     $request_date = date('Y-m-d', strtotime($_POST["request_date"]));
     // $second_date = date('Y-m-d', strtotime($_POST["second_date"]));
     $brand = $_POST["brand"];
@@ -117,9 +118,9 @@ if (isset($_POST['submit'])) {
         $chequefilename = $uploaded_cheque_file;
     }
 
-    // echo "UPDATE `dr_details` SET `doc_name` = '$doc_name', `doc_mobile` = '$doc_mobile', `doc_email` = '$doc_email', `doc_add` = '$doc_add', `doc_speciality` = '$doc_speciality', `doc_region` = '$doc_region', `first_date` = '$first_date', `second_date` = '$second_date', `brand` = '".implode('|', $brand)."', `monthly_support` = '$monthly_support', `targetted_brand` = '$targetted_brand', `head_quarters` = '$head_quarters', `payment_mode` = '$payment_mode', `pan_file` = '$panfilename', `cheque_file` = '$chequefilename' WHERE id = '$id'";die();
+    // echo "UPDATE `dr_details` SET `doc_name` = '$doc_name', `doc_mobile` = '$doc_mobile', `doc_email` = '$doc_email', `doc_add` = '$doc_add', `doc_speciality` = '$doc_speciality', `doc_sbu_code` = '$doc_sbu_code', `first_date` = '$first_date', `second_date` = '$second_date', `brand` = '".implode('|', $brand)."', `monthly_support` = '$monthly_support', `targetted_brand` = '$targetted_brand', `head_quarters` = '$head_quarters', `payment_mode` = '$payment_mode', `pan_file` = '$panfilename', `cheque_file` = '$chequefilename' WHERE id = '$id'";die();
 
-    $num = "UPDATE `dr_details` SET `doc_name` = '$doc_name', `doc_mobile` = '$doc_mobile', `doc_email` = '$doc_email', `doc_add` = '$doc_add', `doc_speciality` = '$doc_speciality', `doc_region` = '$doc_region', `request_date` = '$request_date', `brand` = '".implode('|', $brand)."', `monthly_support` = '$monthly_support', `targetted_brand` = '$targetted_brand', `head_quarters` = '$head_quarters', `payment_mode` = '$payment_mode', `pan_file` = '$panfilename', `cheque_file` = '$chequefilename' WHERE id = '$id'";
+    $num = "UPDATE `dr_details` SET `doc_name` = '$doc_name', `doc_mobile` = '$doc_mobile', `doc_email` = '$doc_email', `doc_add` = '$doc_add', `doc_speciality` = '$doc_speciality', `doc_sbu_code` = '$doc_sbu_code', `request_date` = '$request_date', `brand` = '".implode('|', $brand)."', `monthly_support` = '$monthly_support', `targetted_brand` = '$targetted_brand', `head_quarters` = '$head_quarters', `payment_mode` = '$payment_mode', `pan_file` = '$panfilename', `cheque_file` = '$chequefilename' WHERE id = '$id'";
 
     $num_final = mysqli_query($conn, $num);
 
