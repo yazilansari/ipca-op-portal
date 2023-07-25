@@ -4,6 +4,9 @@ if (!isset($_SESSION['user'])) {
   header('Location: ../../index.php');exit();
 }
 
+$user = $_SESSION['user'];
+
+// echo $user;
 
 ?>
 <!DOCTYPE html>
@@ -22,6 +25,11 @@ if (!isset($_SESSION['user'])) {
   <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<style>
+.action1 { font-size: 10px; margin-right: 2px; }
+td:nth-child(2) { width: 246px; display: block; border: none; }
+.viewbripca { font-size: 12px; }
+</style>
 </head>   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <script src="js/jquery.js"></script>  -->
@@ -224,7 +232,53 @@ $num=1;
 
 // $sql="SELECT * FROM iccc2021_questions LIMIT "   . $this_page_first_result . ',' .  $results_per_page;
 $result = mysqli_query($conn, $sess_fetch);
-while ($data=mysqli_fetch_array($result)) {
+while ($data=mysqli_fetch_array($result)) { ?>
+  <div class="modal fade" id="approve<?php echo $data['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalupload2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header couponphead" style="background: #007bff;">
+          <h5 class="modal-title" id="exampleModalupload2">Approve</h5>
+          <button type="button" class="close close02" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6>Are You Sure Want to Approve?</h6><br>
+          <!-- <form method="POST" action="handler/patient_delete.php"> -->
+            <!-- <input type="hidden" name="id" value="<?php //echo $row['id']; ?>"> -->
+             <div class="uploadmssg sendmail">
+                <a href="#" title="No" style="background: #1c619d; border-radius: 5px; width: 115px !important; font-size: 12px !important; padding: 10px; color: #fff;" data-dismiss="modal"><i class="fa fa-times"></i> No</a>
+                <a href="../../handler/action.php?id=<?php echo $data['id']; ?>&type=approved" style="cursor: pointer; background: green; border-radius: 5px; width: 115px !important; font-size: 12px !important; padding: 10px; color: #fff;"><i class="fa fa-check"></i> Yes</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="reject<?php echo $data['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalupload2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header couponphead" style="background: #dc3545;">
+          <h5 class="modal-title" id="exampleModalupload2">Reject</h5>
+          <button type="button" class="close close02" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6>Are You Sure Want to Reject?</h6><br>
+          <!-- <form method="POST" action="handler/patient_delete.php"> -->
+            <!-- <input type="hidden" name="id" value="<?php //echo $row['id']; ?>"> -->
+             <div class="uploadmssg sendmail">
+                <a href="#" title="No" style="background: #1c619d; border-radius: 5px; width: 115px !important; font-size: 12px !important; padding: 10px; color: #fff;" data-dismiss="modal"><i class="fa fa-times"></i> No</a>
+                <a href="../../handler/action.php?id=<?php echo $data['id']; ?>&type=rejected" style="cursor: pointer; background: green; border-radius: 5px; width: 115px !important; font-size: 12px !important; padding: 10px; color: #fff;"><i class="fa fa-check"></i> Yes</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php 
   $html = '';
   $expl_brands = explode('|', $data['brand']);
   // echo "<pre>";print_r($survey_forms);
@@ -240,7 +294,7 @@ while ($data=mysqli_fetch_array($result)) {
       if($count <= 0) { 
         $html .='<h6 style="color: red;">Not Submitted BRIPCA Form</h6><br>';
       } else { 
-        $html .='<a href="#"><button type="button" class="btn btn-primary"> View BRIPCA Form</button></a><br><br>';
+        $html .='<button type="button" class="btn btn-primary view viewbripca" id="'.$data['id'].'" data-activity="BRIPCA"> View BRIPCA Form</button><br><br>';
       }
     }
     if ($value == 'PEG NT') {
@@ -251,7 +305,7 @@ while ($data=mysqli_fetch_array($result)) {
       if($count2 <= 0) {
         $html .='<h6 style="color: red;">Not Submitted PEG NT Form</h6><br>';
       } else {
-        $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG NT Form</button></a><br><br>';
+        $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="PEG NT"> View PEG NT Form</button><br><br>';
       }
     }
     if ($value == 'RECITA') {
@@ -262,7 +316,7 @@ while ($data=mysqli_fetch_array($result)) {
       if($count3 <= 0) { 
         $html .='<h6 style="color: red;">Not Submitted RECITA Form</h6><br>';
       } else {
-        $html .='<a href=""><button type="button" class="btn btn-primary"> View RECITA Form</button></a><br><br>';
+        $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="RECITA"> View RECITA Form</button><br><br>';
       }
       }
       if ($value == 'VIPCA') {
@@ -273,7 +327,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count4 <= 0) { 
           $html .='<h6 style="color: red;">Not Submitted VIPCA Form</h6><br>';
       } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View VIPCA Form</button></a><br><br>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="VIPCA"> View VIPCA Form</button><br><br>';
         }
       }
       if ($value == 'PARI COMBO') {
@@ -283,7 +337,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count5 <= 0) { 
           $html .='<h6 style="color: red;">Not Submitted PARI COMBO Form</h6><br>';
         } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View PARI COMBO Form</button></a><br><br>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="PARI COMBO"> View PARI COMBO Form</button><br><br>';
         }
       }
       if ($value == 'PARI CR PLUS') {
@@ -293,7 +347,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count6 <= 0) {
           $html .='<h6 style="color: red;">Not Submitted PARI CR PLUS Form</h6><br>';
         } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View PARI CR PLUS Form</button></a><br><br>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="PARI CR PLUS"> View PARI CR PLUS Form</button><br><br>';
         }
       }
       if ($value == 'SOVE') {
@@ -303,7 +357,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count7 <= 0) {
           $html .='<h6 style="color: red;">Not Submitted SOVE Form</h6><br>';
         } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View SOVE Form</button></a><br><br>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="SOVE"> View SOVE Form</button><br><br>';
         }
       }
       if ($value == 'EPICTAL') {
@@ -313,7 +367,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count8 <= 0) {
             $html .='<h6 style="color: red;">Not Submitted EPICTAL Form</h6><br>';
         } else {
-            $html .='<a href=""><button type="button" class="btn btn-primary"> View EPICTAL Form</button></a><br><br>';
+            $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="EPICTAL"> View EPICTAL Form</button><br><br>';
         }
       }
       if ($value == 'PEG SR') {
@@ -323,7 +377,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count9 <= 0) {
           $html .='<h6 style="color: red;">Not Submitted PEG SR Form</h6><br>';
       } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG SR Form</button></a><br><br>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="PEG SR"> View PEG SR Form</button><br><br>';
         }
       }
       if ($value == 'QUEL') {
@@ -333,7 +387,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count10 <= 0) { 
             $html .='<h6 style="color: red;">Not Submitted QUEL Form</h6><br>';
         } else {
-            $html .='<a href=""><button type="button" class="btn btn-primary"> View QUEL Form</button></a><br><br>';
+            $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="QUEL"> View QUEL Form</button><br><br>';
         }
       }
       if ($value == 'PEG D') {
@@ -343,7 +397,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count11 <= 0) { 
             $html .='<h6 style="color: red;">Not Submitted PEG D Form</h6><br>';
         } else {
-            $html .='<a href=""><button type="button" class="btn btn-primary"> View PEG D Form</button></a><br><br>';
+            $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="PEG D"> View PEG D Form</button><br><br>';
         }
       }
       if ($value == 'CITINOVA') {
@@ -353,7 +407,7 @@ while ($data=mysqli_fetch_array($result)) {
         if($count12 <= 0) { 
           $html .='<h6 style="color: red;">Not Submitted CITINOVA Form</h6><br>';
       } else {
-          $html .='<a href=""><button type="button" class="btn btn-primary"> View CITINOVA Form</button></a>';
+          $html .='<button type="button" class="btn btn-primary view" id="'.$data['id'].'" data-activity="CITINOVA"> View CITINOVA Form</button>';
        }
      }
    }
@@ -370,7 +424,7 @@ while ($data=mysqli_fetch_array($result)) {
     $email = $data['doc_email'];
     // $add = $data['doc_add'];
     $speciality = $data['doc_speciality'];
-    $sbu_code = $data['doc_sbu_code'];
+    $sbu_code = $data['doc_region'];
     $request_date = $data['request_date'];
     // $second_date = $data['second_date'];
     $brands = implode(', ', explode('|', $data['brand']));
@@ -387,6 +441,15 @@ while ($data=mysqli_fetch_array($result)) {
     $created_at = $data['created_at'];
     $updated_at = $data['updated_at'];
 
+    $approve_reject = '';
+    // $reject = '';
+    $submit_details = '';
+    if($user == 'admin') {
+      $submit_details = "<a title='Submit Details' href='edit.php?id=$id'><button class='btn btn-info action1'><i class='fa fa-save' aria-hidden='true'></i> Submit Details</button></a>";
+    } else if($user == 'ipca') {
+      $approve_reject = "<a title='Approve' href='#' data-toggle='modal' data-target='#approve".$data['id']."'><button class='btn btn-primary action1'><i class='fa fa-check' aria-hidden='true'></i> Approve</button></a><a title='Reject' href='#' data-toggle='modal' data-target='#reject".$data['id']."'><button class='btn btn-danger action1'><i class='fa fa-ban' aria-hidden='true'></i> Reject</button></a>";
+    }
+
     // <td>".date('d-m-Y', strtotime($second_date))."</td>
     // <td>$add</td>
     // <td>$targetted_brand</td>
@@ -394,7 +457,7 @@ while ($data=mysqli_fetch_array($result)) {
     echo "
         <tr>
           <td>$num</td>
-          <td><a title='Approve' href='../../handler/action.php?id=$id&type=approved'><i class='fa fa-check text-dark' aria-hidden='true'></i> </a>| <a title='Reject' href='../../handler/action.php?id=$id&type=rejected'><i class='fa fa-ban text-dark' aria-hidden='true'></i></a><br><a title='Edit' href='edit.php?id=$id'><i class='fa fa-edit text-dark' aria-hidden='true'></i></a></td>
+          <td>$approve_reject".''."$submit_details</td>
           <td>$zone</td>
           <td>$region</td>
           <td>$hq</td>
@@ -474,7 +537,22 @@ while ($data=mysqli_fetch_array($result)) {
   </div>
   <!-- /.content-wrapper -->
   
-
+  <div class="modal fade" id="viewModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -515,6 +593,34 @@ function getCellValue(row, index){ return $(row).children('td').eq(index).text()
 </script>
 <script>
   $(function () {
+    $(document).on('click', '.view', function() {
+      let id = $(this).attr('id');
+      let activity = $(this).attr('data-activity');
+      let survey_form_data = '';
+      $.ajax({
+        url: '../../handler/get_survey_forms.php',
+        type: 'POST',
+        data: 'id='+id+'&activity='+activity,
+        dataType: 'json',
+        success: function(res) {
+          // console.log(res);
+          res.map((val, id) => {
+            let others = (val.others != null && val.others != '') ? val.others : '';
+            survey_form_data += `<div class="card-header">
+                                  ${val.questions}<br>
+                                  <b>Answer:</b> ${val.answers}<br>
+                                  <b>Others:</b> ${others}
+                                </div>`;
+          });
+          $('.modal-title').html('');
+          $('.modal-title').html('View '+activity+' Form');
+          $('.modal-body').html('');
+          $('.modal-body').html(survey_form_data);
+          $('#viewModal').modal('show');
+        }
+      });
+    });
+
     /* ChartJS
      * -------
      * Here we will create a few charts using ChartJS

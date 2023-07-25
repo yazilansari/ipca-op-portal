@@ -1,0 +1,534 @@
+@media(max-width: 1024px) { 
+.login2 img { width: 300px; margin-top: 30px; }	
+.ttle { font-size: 32px; }
+.userlogin a { margin-bottom: 15px; }
+video { margin-top: 40px; }
+/*******Dropdown*******/
+.coredoctor a { font-size: 15px; }
+.dropdown1 { height: 57px; line-height: 27px; }
+.dropdown1 a { font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+.dropdown-content p a { font-size: 18px; } 
+.placeorder input[type="submit"] { width: 30%; margin:0 32.5%; }
+/*******Dropdown*******/
+
+/*******Portrait*******/
+.portrait-content { display: block; position: absolute; top: 0; left: 0; background: #fff; width: 100%;
+  height: 100%; height: 100vh; z-index: 99999999; }
+.portrait-center { position: absolute; top: 50%; left: 0; margin: 0 auto; right: 0; 
+  transform: translateY(-50%); text-align: center; }
+.portrait-center img { margin: 0 auto 10px; width: 200px; text-align: center; }
+.portrait-center p { font-size: 18px; color: #000; font-family: var(--head-font); text-transform: uppercase;
+  text-align: center; font-weight: 600; }
+}
+
+@media(min-width: 812px) and (max-width: 851px) { 
+.coredoctor a { font-size: 14px; }
+.dropdown1 { height: 50px; line-height: 23px; }
+.dropdown1 a { font-size: 14px; }
+}
+
+@media(max-width: 768px) {
+.login2 img { width: 300px; margin-top: 30px; }	
+.brderer { width: 75%; }
+.itmm label input[type="checkbox"] { position: absolute; left: 7%;
+ margin-top: 3px; }
+.dropdown1 { height: 50px; line-height: 22px; }
+.dropdown1 a { font-size: 14px; } 
+.dropdown-content p a { font-size: 16px; } 
+.drform { width: 81%; margin: auto; }
+.drform2 { width: 55%; }
+.placeorder input[type="submit"] { width: 30%; margin:0 32.5%; }
+.portrait-content { display: none; }  
+}
+
+@media(max-width: 736px) {
+.brderer { width: 100%; margin-top: 0px; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 5px; }
+/*********END********/
+/**********Dropdown*********/
+.dropdown1 { background: none; margin-top: 20px; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+/********END******/
+.login2 img { width: 40%; margin-top: 30px; margin-bottom: 15px; }
+.login2 a { display: block; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; float: none; text-align: center; }
+.coredoctor { margin-top: 20px; }
+.coredoctor a { font-size: 18px; }
+.heading { margin-bottom: 35px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 23px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 85%; margin: 0 7.5%; margin-bottom: 33px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 100%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 17%;
+ margin-top: 2px; }
+/********END********/ 
+.livespace { padding-top: 10px; }
+.statusclose { position: absolute; right: 18px; top: 16px; }
+}
+
+@media(max-width: 731px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 5px; }
+/********END******/
+.login2 img { width: 25%; margin-top: 30px; margin-bottom: 0px; }
+.login2 a { display: block; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; margin-top: 20px; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 35px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 28px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 85%; margin: 0 7.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 100%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 17%;
+ margin-top: 2px; }
+/********END********/
+.livespace { padding-top: 10px; }
+.statusclose { position: absolute; right: 18px; top: 16px; }
+.in-transit a { margin-left: 15px; }
+}
+
+@media(max-width: 640px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 5px; }
+/********END******/
+.login2 img { width: 35%; margin-top: 30px; margin-bottom: 15px; }
+.login2 a { display: block; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; margin-top: 20px; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 35px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 26px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 85%; margin: 0 7.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 100%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 12%;
+ margin-top: 2px; }
+ /********END********/
+.livespace { padding-top: 10px; }
+.statusclose { position: absolute; right: 18px; top: 16px; }
+.in-transit a { margin-left: 15px; }
+}
+
+@media(max-width: 568px) {
+.itmm label input[type="checkbox"] { position: absolute; left: 27px;
+    margin-top: 2px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/    
+.livespace { padding-top: 10px; }
+.statusclose { position: absolute; right: 18px; top: 16px; }
+.in-transit { padding-left: 15px; }
+}
+
+@media(max-width: 480px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 3px; }
+.dropdown1 { margin-top: 20px; }
+/********END******/
+.login2 img { width: 30%; margin-top: 30px; margin-bottom: 15px; padding: 0px; }
+.login2 a { display: block; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 35px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 23px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 85%; margin: 0 7.5%; margin-bottom: 33px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 100%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 6%;
+ margin-top: 2px; }
+/**********END**********/
+/**********Status*Close*********/
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+/**********END**********/
+.livespace { padding-top: 10px; }
+.statusclose { position: absolute; right: 18px; top: 16px; }
+.in-transit { padding-left: 15px; }
+}
+
+@media(max-width: 414px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.videobg img { width: 45%; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; margin-top: 50px; display: block; }
+.login2 a h4 { font-size: 14px; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.drform.unicode { width: 90%; }
+.footer-form img { position: inherit; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 3px; }
+/********END******/
+.login2 img { width: 60%; margin-top: 10px; margin-bottom: 0; padding: 0px; margin: auto; margin-top: 12px; }
+.login2 a { display: block; width: 50%; margin: auto; margin-top: 15px; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 15px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 26px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 95%; margin: 0 2.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 90%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 7%;
+ margin-top: 3px; }
+.itmm tr td { padding: 4px 10px; }
+/**********END**********/
+/**********Status*Close*********/
+.live-body { width: auto; margin-left: 10px; margin-right: 10px; }
+.in-transit { padding-left: 15px; }
+.livetracking h2 { font-size: 22px; }
+.livestatus h3 { font-size: 22px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 3px; top: 16px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.placesubmit a input { width:100%; }
+.placesubmit input[type="submit"] { font-size:18px; }
+.drlegacy .placeorder input[type="submit"] { width: 50%; margin: 0 25%; }
+.footer img { width: 55%; } 
+}
+
+@media(max-width: 411px) { 
+/**********Status*Close*********/
+.live-body { width: auto; margin-left: 10px; margin-right: 10px; }
+.in-transit { padding-left: 15px; }
+.livetracking h2 { font-size: 22px; }
+.livestatus h3 { font-size: 22px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 3px; top: 16px; }
+.in-transit a { margin-left: 0px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.order-details h4 { font-size: 22px; }
+.placesubmit a input { width:100%; }
+.placesubmit input[type="submit"] { font-size:18px; }
+.drlegacy .placeorder input[type="submit"] { width: 50%; margin: 0 25%; }
+}
+
+@media(max-width: 393px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.videobg img { width: 45%; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; margin-top: 50px; display: block; }
+.login2 a h4 { font-size: 14px; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.drform.unicode { width: 90%; }
+.footer-form img { position: inherit; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 3px; }
+/********END******/
+.login2 img { width: 60%; margin-top: 10px; margin-bottom: 0; padding: 0px; margin: auto; margin-top: 12px; }
+.login2 a { display: block; width: 50%; margin: auto; margin-top: 15px; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 15px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 26px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 95%; margin: 0 2.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 90%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 7%;
+ margin-top: 3px; }
+.itmm tr td { padding: 4px 10px; }
+/**********END**********/
+/**********Status*Close*********/
+.live-body { width: auto; margin-left: 10px; margin-right: 10px; }
+.in-transit { padding-left: 15px; }
+.livetracking h2 { font-size: 22px; }
+.livestatus h3 { font-size: 22px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 3px; top: 16px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.placesubmit a input { width:100%; }
+.placesubmit input[type="submit"] { font-size:18px; }
+.drlegacy .placeorder input[type="submit"] { width: 50%; margin: 0 25%; }
+.footer img { width: 55%; } 
+
+}
+
+@media(max-width: 375px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.videobg img { width: 45%; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; margin-top: 50px; display: block; }
+.login2 a h4 { font-size: 14px; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.drform.unicode { width: 90%; }
+.footer-form img { position: inherit; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 3px; }
+/********END******/
+.login2 img { width: 60%; margin-top: 10px; margin-bottom: 0; padding: 0px; margin: auto; margin-top: 12px; }
+.login2 a { display: block; width: 50%; margin: auto; margin-top: 15px; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 15px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 26px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 95%; margin: 0 2.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 90%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 7%;
+ margin-top: 3px; }
+.itmm tr td { padding: 4px 10px; }
+/**********END**********/
+/**********Status*Close*********/
+.live-body { width: auto; margin-left: 10px; margin-right: 10px; }
+.in-transit { padding-left: 15px; }
+.livetracking h2 { font-size: 22px; }
+.livestatus h3 { font-size: 22px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 3px; top: 16px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.placesubmit a input { width:100%; }
+.placesubmit input[type="submit"] { font-size:18px; }
+.drlegacy .placeorder input[type="submit"] { width: 50%; margin: 0 25%; }
+.footer img { width: 55%; } 
+}
+
+@media(max-width: 360px) {
+.brderer { width: 100%; margin-top: 0px; }
+.videobg img { width: 45%; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; margin-top: 50px; display: block; }
+.login2 a h4 { font-size: 14px; }
+.userlogin input { width:100%; margin:0%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.drform.unicode { width: 90%; }
+.footer-form img { position: inherit; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 16px; }
+.close:not(:disabled):not(.disabled) { padding-right: 3px; }
+/********END******/
+.login2 img { width: 60%; margin-top: 10px; margin-bottom: 0; padding: 0px; margin: auto; margin-top: 12px; }
+.login2 a { display: block; width: 50%; margin: auto; margin-top: 15px; }
+.logout p a { font-size: 18px; }
+.logout p { margin-top: 10px; }
+.coredoctor a { font-size: 18px; }
+/**********Dropdown*********/
+.dropdown1 { background: none; }
+.dropdown1 a { background: #00afef; font-size: 18px; }
+.dropdown-content { width: calc(100% - 30px); }
+/*********END*Dropdown*********/
+.heading { margin-bottom: 15px; }
+.heading2 { display: none; }
+.heading h2 { font-size: 22px; padding-left: 30px; }
+.heading h2 a { position: absolute; left: 26px; margin-top: 0px; }
+.heading h2 a i { font-size: 20px; margin-top: 4px; }
+.searchbar form { width: 95%; margin: 0 2.5%; margin-bottom: 33px; margin-top: 20px; }
+.searchbar form input {  width: calc(100% - 75px); }
+.searchbar form input[type="submit"] { width: 75px; }
+.drform { width: 90%; margin-bottom: 20px; }
+.drstatus input { height: 40px; margin-bottom: 15px; }
+.placeorder input[type="submit"] { font-size: 18px; }
+.itmm label { padding-left: 22px; }
+.itmm label input[type="checkbox"] { position: absolute; left: 7%;
+ margin-top: 3px; }
+.itmm tr td { padding: 4px 10px; }
+/**********END**********/
+/**********Status*Close*********/
+.live-body { width: auto; margin-left: 10px; margin-right: 10px; }
+.in-transit { padding-left: 15px; }
+.livetracking h2 { font-size: 22px; }
+.livestatus h3 { font-size: 22px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 3px; top: 16px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.placesubmit a input { width:100%; }
+.placesubmit input[type="submit"] { font-size:18px; }
+.drlegacy .placeorder input[type="submit"] { width: 50%; margin: 0 25%; }
+.footer img { width: 55%; } 
+}
+
+@media(max-width: 320px) { 
+.brderer { width: 100%; margin-top: 0px; }
+.login img { width: 75%; }
+.login { margin-top: 0; }
+.login2 { text-align: center; }
+.userlogin input { width:85%; margin: 0 7.5%; margin-bottom: 15px; }
+.userlogin a { width: 85%; margin: 0 7.5%; margin-top: 0px; 
+  font-size: 16px; }
+.login img { margin-bottom: 0px; }
+.userlogin input { font-size: 14px; }
+.ttle { font-size: 24px; }
+.gapp { padding-bottom: 0px; }
+.userlogin { text-align: center; margin-bottom: 5px; }
+.userlogin a { font-size: 14px; }
+.close:not(:disabled):not(.disabled) { padding-right: 5px; }
+/*********END********/
+/*********dropdown*width********/
+.dropdown-content { width: calc(100% - 30px); }
+/*********END********/
+/**********Status*Close*********/
+.livetracking h2 { font-size: 18px; }
+.modal-header .statusclose { margin-left: 0; padding-left: 0; padding-right: 0; margin-right: 0; }
+.statusclose { position: absolute; right: 5px; top: 16px; }
+/*****************/
+.livestatus h3 { font-size: 20px; }
+/******status*table*****/
+.serialno td a { width: 97px; height: 32px; line-height: 32px; margin-left: 0; margin-right: 7px; }
+.order-details h4 { font-size: 22px; }
+}

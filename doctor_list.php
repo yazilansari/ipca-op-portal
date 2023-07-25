@@ -156,13 +156,19 @@ th, td { text-align: center; }
             <th>Exisitng Supported Brands</th>
             <th>Pan Card</th>
             <th>Cancelled Cheque</th>
+            <th>Reciept</th>
             <th>Division</th>
             <th>Emp Code</th>
             <th>Doctor Name</th>        
             <th>Doctor Mobile</th>        
             <th>Doctor Email Id</th>        
-            <th>Address</th>        
-            <th>Speciality</th>        
+            <!-- <th>Address</th>  -->
+            <th>City</th>
+            <th>State</th>
+            <th>ZBM Zone</th>
+            <th>RBM Region</th>
+            <th>Territory</th>
+            <th>Speciality</th>      
             <th>SBU Code</th>        
             <th>Request Date</th>    
             <!-- <th>Visiting Second Date</th> -->
@@ -176,9 +182,9 @@ th, td { text-align: center; }
         </thead>
         <tbody>
           <?php 
-            $q = "SELECT * FROM dr_details WHERE emp_code='".$_SESSION['emp_code']."' ORDER BY `id` DESC";
+            $q = "SELECT `dr_details`.*, `quarter_details`.`territory` FROM `dr_details` LEFT JOIN `quarter_details` ON `quarter_details`.`id` = `dr_details`.`quarter_detail_id`  WHERE emp_code='".$_SESSION['emp_code']."' ORDER BY `id` DESC";
             $res = mysqli_query($conn, $q);
-            $count = 1;
+            $srno = 1;
             if(mysqli_num_rows($res) > 0) {
               while ($row = mysqli_fetch_assoc($res)) {
                 $brands = [];
@@ -193,7 +199,7 @@ th, td { text-align: center; }
                 // echo count($survey_forms);
                 ?>
                 <tr>
-                  <td class="first_td"><?php echo $count; ?></td>
+                  <td class="first_td"><?php echo $srno; ?></td>
                   <td class="">
                     <?php if(count($survey_forms) == count($expl_brands)) { ?>
                       <a href="#"><button disabled type="button" class="btn btn-primary"><i class="far fa-edit"></i> Edit</button></a><br><br>
@@ -354,14 +360,25 @@ th, td { text-align: center; }
                   <td class="pan_cheque">
                     <a download="" href="docs/<?php echo $row['cheque_file']; ?>">Download</a>
                   </td>
+                  <td class="pan_cheque">
+                    <?php if(!empty($row['reciept'])) { ?>
+                      <a download="" href="reciept_uploads/<?php echo $row['reciept']; ?>">Download</a>
+                    <?php } else { ?>
+                    <?php } ?>
+                  </td>
                   <td><?php echo $row['division']; ?></td>
                   <td><?php echo $row['emp_code']; ?></td>
                   <td><?php echo $row['doc_name']; ?></td>     
                   <td><?php echo $row['doc_mobile']; ?></td>          
                   <td><?php echo $row['doc_email']; ?></td>
-                  <td><?php echo $row['doc_add']; ?></td>
-                  <td><?php echo $row['doc_speciality']; ?></td>          
-                  <td><?php echo $row['doc_sbu_code']; ?></td>          
+                  <!-- <td><?php echo $row['doc_add']; ?></td> -->
+                  <td><?php echo $row['doc_city']; ?></td>
+                  <td><?php echo $row['doc_state']; ?></td>
+                  <td><?php echo $row['zbm_zone']; ?></td>
+                  <td><?php echo $row['rbm_region']; ?></td>
+                  <td><?php echo $row['territory']; ?></td>
+                  <td><?php echo $row['doc_speciality']; ?></td>        
+                  <td><?php echo $row['doc_region']; ?></td>          
                   <td><?php echo date('d-m-Y', strtotime($row['request_date'])); ?></td>                    
                   <!-- <td><?php echo date('d-m-Y', strtotime($row['second_date'])); ?></td> -->
                   <td><?php echo $row['monthly_support']; ?></td>                    
@@ -392,7 +409,7 @@ th, td { text-align: center; }
                               <!-- <div class="col-md-10"> -->
                                   <div class="form-group">
                                       <label for="to">Email To</label>
-                                      <input type="email" class="form-control" name="to[]" id="to" placeholder="Enter Email To" value="<?php echo $row['doc_email'];?>" required>
+                                      <input type="email" class="form-control" name="to" id="to" placeholder="Enter Email To" value="<?php echo $row['doc_email'];?>" required>
                                   </div>
                               <!-- </div> -->
                               <!-- <div class="col-md-2">
@@ -419,7 +436,7 @@ th, td { text-align: center; }
                 </div>
               </div>
 
-              <?php $count++; } } ?>
+              <?php $srno++; } } ?>
         </tbody>
       </table>
     </div>

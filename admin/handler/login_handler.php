@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
 	// $password = $_POST['pass'];
 	$division = $_POST['division'];
 	
-	if ($username === 'admin') {
+	if ($username === 'admin' || $username === 'ipca') {
 		$_SESSION['user'] = $username;
 		$_SESSION['division'] = $division;
 		header('Location: ../pages/charts/drdetails.php?Successfully Login');

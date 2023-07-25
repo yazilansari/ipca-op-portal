@@ -3,6 +3,22 @@
 	if(!isset($_SESSION['emp_code']) || empty($_SESSION['emp_code'])) {
 		header('Location: index.php');exit();
 	}
+	$emp_code = $_SESSION['emp_code'];
+	$q = "SELECT `zone`, `region`, `division`, `designation` FROM `employees_ipca` WHERE `emp_no` = '$emp_code'";
+    $res = mysqli_query($conn, $q);
+    if(mysqli_num_rows($res) > 0) {
+    	$row = mysqli_fetch_assoc($res);
+    	$zone = $row['zone'];
+    	$region = $row['region'];
+    	$division = $row['division'];
+    	$designation = $row['designation'];
+    	if(strtoupper($designation) == 'RBM') {
+    		$region = $row['region'];
+    	} else {
+    		$q2 = "SELECT `region` FROM `employees_ipca` WHERE `zbm_code` = '$emp_code'";
+    		$res2 = mysqli_query($conn, $q2);
+    	}
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,7 +60,7 @@ font-size: 17px; letter-spacing: 0.5px; border-radius: 3px; }
 .userlogin textarea { width: 100%; height: 90px; color: #333; margin-bottom: 12px;
 outline: none; border: 1px solid #a3a1a1; padding-left: 15px; font-weight: 400;
 font-size: 17px; letter-spacing: 0.5px; border-radius: 3px; padding-top: 5px; }
-
+.brands2 { border-right: none; }
 .userlogin input[type="date"] { height: 42px; width: 100%; color: #444; font-weight: 400; }
 
 .userlogin label { color: #333; font-size: 16px; font-family: 'Roboto', sans-serif; 
@@ -74,6 +90,8 @@ font-size: 16px; letter-spacing: 0.5px; border-radius: 3px; }
 .userlogin input[type="submit"] { width: 120px; height: 45px; border-radius: 5px; display: block; 
 margin: 0 auto; cursor: pointer; background-image: linear-gradient(180deg, red, #f1cacd); padding: 0px; font-size: 22px; 
 text-transform: uppercase; color: #fff; border: none; font-weight: 500; margin-bottom: 50px; }
+.bripca { margin-top: 10px; }
+
 
 @media(max-width: 1024px){
 .maincol { width: 90%; margin: 0 5%; }
@@ -134,6 +152,7 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 								<div class="row" id="emplcode">									
 									<div class="col-md-12 userlogin">
 										<input type="text" placeholder="Doctor Name" name="doc_name" required="">
+										<input type="hidden" value="<?php echo $division; ?>" name="division">
 									</div><!-----Doctor-Name---->	
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="number" placeholder="Doctor Mobile" name="doc_mobile" required>
@@ -141,24 +160,58 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="email" placeholder="Doctor Email Id" name="doc_email" required>
 									</div><!-----Doctor-Mobile---->	
-									
+									<!---
 									<div class="col-md-12 userlogin">	
 										<textarea placeholder="Address" name="doc_add" required></textarea>
-									</div><!---Address---->
-
+									</div>-Address---->
+									<div class="col-md-6 col-sm-12 userlogin">
+										<input type="text" placeholder="Doctor City" name="doc_city" required>
+									</div><!-----Doctor-Mobile---->	
+									<div class="col-md-6 col-sm-12 userlogin">
+										<input type="text" placeholder="Doctor State" name="doc_state" required>
+									</div><!-----Doctor-Mobile---->		
+									
+						
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="text" placeholder="Speciality" name="doc_speciality" required="">
 									</div><!-----Speciality----->	
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="text" placeholder="SBU Code" name="doc_sbu_code" required="">
 									</div><!---SBU-Code-->	
-
+									<div class="col-md-6 col-sm-12 userlogin">
+										<select name="zbm_zone" required>
+											<option value="">ZBM HQ</option>
+											<option value="<?php echo $zone ?>"><?php echo $zone ?></option>
+										</select>
+									</div><!---SBU-Code-->		
+									<div class="col-md-6 col-sm-12 userlogin">
+										<?php if(strtoupper($designation) == 'RBM') { ?>
+											<select name="rbm_region" id="rbm_region" required>
+												<option value="">RBM HQ</option>		
+												<option value="<?php echo $region; ?>"><?php echo $region; ?></option>
+											</select>
+										<?php } else { ?>
+											<select name="rbm_region" id="rbm_region" required>
+												<option value="">RBM HQ</option>	
+												<?php if(mysqli_num_rows($res2) > 0) {
+								    			while ($row = mysqli_fetch_assoc($res2)) { ?>
+													<option value="<?php echo $row['region']; ?>"><?php echo $row['region']; ?></option>
+								    			 <?php } } ?>
+											</select>
+										<?php } ?>
+									</div><!---SBU-Code-->
+									<div class="col-md-6 col-sm-12 userlogin">
+										<select name="territory" id="territory" required>
+											<option value="">BE / BO / TM </option>
+										</select>
+									</div><!---SBU-Code-->		
 
 									<div class="col-md-12">
 										<div class="row">
 											<div class="col-md-6 userlogin">
-												<label>Request Date: </label>
-												<input type="date" name="request_date" required="">
+												<label>Request Date (Dynamic Date): </label>
+												<!-- <input type="date" name="request_date" required=""> -->
+												<input type="text" name="request_date" value="<?php echo date('d-m-Y'); ?>" readonly>
 											</div>	
 											<!-- <div class="col-md-6 userlogin">
 												<label>Visiting Second Date: </label>
@@ -168,7 +221,7 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 									</div><!----Visiting-Date--->
 
 									<div class="col-md-12 userlogin brands mt-2 mb-3">
-										<?php if ($_SESSION['division'] == 'Innova') { ?>
+										<?php if (strtoupper($division) == 'INNOVA') { ?>
 											<div class="row brand">
 												<div class="col-md-12">
 													<label>Exisitng Supported Brands:</label>
@@ -183,15 +236,18 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 												<div class="col-md-4 col-sm-4 check1">
 													<label> <input value="RECITA" type="checkbox" name="brand[]" required> RECITA </label>
 												</div>
-												<div class="col-md-4 col-sm-12 check1">
+												<!-- <div class="col-md-4 col-sm-12 check1">
 													<label> <input value="VIPCA" type="checkbox" name="brand[]" required> VIPCA</label>
-												</div>
+												</div> -->
 												<div class="col-md-4 col-sm-12 check1">
 													<label> <input value="PARI COMBO" type="checkbox" name="brand[]" required> PARI COMBO</label>
 												</div>
 												<div class="col-md-4 col-sm-12 check1">
-													<label> <input value="PARI CR PLUS" type="checkbox" name="brand[]" required> PARI CR PLUS</label>
+													<label> <input value="PEG NT M" type="checkbox" name="brand[]" required> PEG NT M</label>
 												</div>
+												<!-- <div class="col-md-4 col-sm-12 check1">
+													<label> <input value="PARI CR PLUS" type="checkbox" name="brand[]" required> PARI CR PLUS</label>
+												</div> -->
 
 											</div>
 										<?php } else { ?>
@@ -229,14 +285,247 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 											<option>VIPCA</option>
 											<option>ZOLPIDEM</option>
 										</select> -->
-									</div><!-----Bripca---->										
+									</div><!-----Bripca-end--->										
+									<!----------------------------------End---------------------------------------------------->
+									<!----------------------------------Quarterly-Data------------------------------------->
+											<!-------------Quarterly-Data---2022------->
+											<div class="col-md-12 userlogin">
+												<label class="mt-1 mb-0">Quarterly Data:</label>
+											</div>
+											<div class="col-md-12">
+											<div class="col-md-12">	
+											<div class="row">									
+											<div class="col-md-6 userlogin brands brands2 mt-2 mb-3">
+												<div class="row brand">
+												<div class="col-md-12">
+													<label>Quarter-1 2022-23:</label>
+													<hr>
+												</div>
+												<?php if (strtoupper($division) == 'INNOVA') { ?>
+												<div class="col-md-12 col-sm-12 check1">		
+													<div class="row">
+														<div class="col-md-4">	<label class="bripca"> BRIPCA</label><input type="hidden" name="brand_q[]" value="BRIPCA"></div>
+														<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_bripca" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+													</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> PEG NT</label><input type="hidden" name="brand_q[]" value="PEG NT"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_peg_nt" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> RECITA</label><input type="hidden" name="brand_q[]" value="RECITA"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_recita" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<!-- <div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> VIPCA</label><input type="hidden" name="brand_q[]" value="VIPCA"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_vipca" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div> -->
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-6 pr-0">	<label class="bripca"> PARI COMBO </label><input type="hidden" name="brand_q[]" value="PARI COMBO"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_22_23_pari_combo" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> PEG NT M</label><input type="hidden" name="brand_q[]" value="PEG NT"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_peg_nt_m" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<!-- <div class="col-md-12 col-sm-12 check1">	
+															<div class="row">	
+															<div class="col-md-6 pr-0">	<label class="bripca"> PARI CR PLUS </label><input type="hidden" name="brand_q[]" value="PARI CR PLUS"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_22_23_pari_cr_plus" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>																					
+															</div>
+													</div> -->
+												<?php } else { ?>
+													<div class="col-md-12 col-sm-12 check1">		
+													<div class="row">
+														<div class="col-md-4">	<label class="bripca"> SOVE</label><input type="hidden" name="brand_q[]" value="SOVE"></div>
+														<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_sove" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+													</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> EPICTAL</label><input type="hidden" name="brand_q[]" value="EPICTAL"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_epictal" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> PEG SR</label><input type="hidden" name="brand_q[]" value="PEG SR"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_peg_sr" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> QUEL</label><input type="hidden" name="brand_q[]" value="QUEL"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_22_23_quel" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-6 pr-0">	<label class="bripca"> PEG D </label><input type="hidden" name="brand_q[]" value="PEG D"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_22_23_peg_d" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">	
+															<div class="row">	
+															<div class="col-md-6 pr-0">	<label class="bripca"> CITINOVA </label><input type="hidden" name="brand_q[]" value="CITINOVA"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_22_23_citinova" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>																					
+															</div>
+													</div>
+												<?php } ?>
+											</div>
+																				<!-- <select>
+											<option>Exisitng Supported Brands</option>
+											<option>BRIPCA</option>
+											<option>EPICTAL CPD</option>
+											<option>PARI CR PLUS</option>
+											<option>PEG-NT</option>
+											<option>VIPCA</option>
+											<option>ZOLPIDEM</option>
+										</select> -->
+									</div>
+
+											<!-------------Quarterly-Data---2023------->										
+											<div class="col-md-6 userlogin brands mt-2 mb-3">
+												<div class="row brand">
+												<div class="col-md-12">
+													<label>Quarter-1 2023-24:</label>
+													<hr>
+												</div>
+												<?php if (strtoupper($division) == 'INNOVA') { ?>
+												<div class="col-md-12 col-sm-12 check1">		
+													<div class="row">
+														<div class="col-md-4">	<label class="bripca"> BRIPCA</label><input type="hidden" name="brand_q[]" value="BRIPCA"></div>
+														<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_bripca" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+													</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> PEG NT</label><input type="hidden" name="brand_q[]" value="PEG NT"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_peg_nt" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> RECITA</label><input type="hidden" name="brand_q[]" value="RECITA"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_recita" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<!-- <div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> VIPCA</label><input type="hidden" name="brand_q[]" value="VIPCA"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_vipca" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div> -->
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-6 pr-0">	<label class="bripca"> PARI COMBO </label><input type="hidden" name="brand_q[]" value="PARI COMBO"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_23_24_pari_combo" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> PEG NT M</label><input type="hidden" name="brand_q[]" value="PEG NT"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_peg_nt_m" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2022-23" name="quarter[]"></div>
+														</div>													
+													</div>
+													<!-- <div class="col-md-12 col-sm-12 check1">	
+															<div class="row">	
+															<div class="col-md-6 pr-0">	<label class="bripca"> PARI CR PLUS </label><input type="hidden" name="brand_q[]" value="PARI CR PLUS"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_23_24_pari_cr_plus" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>																					
+															</div>
+													</div> -->
+												<?php } else { ?>
+													<div class="col-md-12 col-sm-12 check1">		
+													<div class="row">
+														<div class="col-md-4">	<label class="bripca"> SOVE</label><input type="hidden" name="brand_q[]" value="SOVE"></div>
+														<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_sove" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+													</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4 pr-0">	<label class="bripca"> EPICTAL</label><input type="hidden" name="brand_q[]" value="EPICTAL"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_epictal" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> PEG SR</label><input type="hidden" name="brand_q[]" value="PEG SR"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_peg_sr" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-4">	<label class="bripca"> QUEL</label><input type="hidden" name="brand_q[]" value="QUEL"></div>
+															<div class="col-md-8">	 <input value="" type="text" id="quarter_1_23_24_quel" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">		
+														<div class="row">
+															<div class="col-md-6 pr-0">	<label class="bripca"> PEG D </label><input type="hidden" name="brand_q[]" value="PEG D"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_23_24_peg_d" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>
+														</div>													
+													</div>
+													<div class="col-md-12 col-sm-12 check1">	
+															<div class="row">	
+															<div class="col-md-6 pr-0">	<label class="bripca"> CITINOVA </label><input type="hidden" name="brand_q[]" value="CITINOVA"></div>
+															<div class="col-md-6">	 <input value="" type="text" id="quarter_1_23_24_citinova" name="brand_value[]" readonly=""><input type="hidden" value="Quarter-1 2023-24" name="quarter[]"></div>																					
+															</div>
+													</div>
+												<?php } ?>
+											</div>
+																				<!-- <select>
+											<option>Exisitng Supported Brands</option>
+											<option>BRIPCA</option>
+											<option>EPICTAL CPD</option>
+											<option>PARI CR PLUS</option>
+											<option>PEG-NT</option>
+											<option>VIPCA</option>
+											<option>ZOLPIDEM</option>
+										</select> -->
+									</div>
+						</div>
+					</div>	
+				</div>
+
 
 									<div class="col-md-12 userlogin">
-										<input type="number"  placeholder="Monthly Support Value" name="monthly_support" required="">
+										<input type="number"  placeholder="Monthly Support Value in Rs" name="monthly_support" required="">
 									</div><!-----Speciality----->	
+									<!----
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="text" placeholder="Targetted Brand" name="targetted_brand" required="">
-									</div><!-----Number----->	
+									</div>--Number----->	
+									<div class="col-md-6 col-sm-12 userlogin">
+										<select name="targetted_brand" required>
+											<option value="">Targetted Brand</option>
+											<?php if (strtoupper($division) == 'INNOVEX') { ?>
+												<option>SOVE</option>
+												<option>EPICTAL</option>
+												<option>PEG SR</option>
+												<option>QUEL</option>
+												<option>PEG D</option>
+												<option>CITINOVA</option>
+											<?php } else { ?>
+												<option>BRIPCA</option>
+												<option>PEG NT</option>
+												<option>RECITA</option>
+												<option>PARI COMBO</option>
+												<option>PEG NT M</option>
+												<!-- <option>CITINOVA</option> -->
+											<?php } ?>
+										</select>
+									</div>
+	
 									<div class="col-md-6 col-sm-12 userlogin">
 										<input type="text" placeholder="Head Quarters" name="head_quarters" required="">
 									</div><!---SBU-Code-->	
@@ -318,11 +607,7 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 </div>
 </footer> -->
 <script>
-swal({
-  title: "<?php  echo $_SESSION['logout'];   ?>",
-  icon: "<?php  echo $_SESSION['symbol'];   ?>",
-  button: "Ok",
-});
+
 </script>
 <script src="js/jquery-3.6.4.min.js" type="text/javascript"></script>
 <script src="js/popper.min.js" type="text/javascript"></script>
@@ -360,6 +645,101 @@ $(document).ready(function() {
             requiredCheckboxes.attr('required', 'required');
         }
     });
+	$(document).on('change', '#rbm_region', function() {
+		let region = $(this).val();
+		if(region != '') {
+			let territories = '<option value="">BE / BO / TM</option>';
+			$.ajax({
+				url: 'handler/get_territories.php?region='+region,
+				method: 'GET',
+				dataType: 'json',
+				success: function(res) {
+					if(res.length > 0) {
+						res.map((val, ind) => {
+							territories += `<option value="${val.id}">${val.territory}</option>`;
+						});
+						$('#territory').html('');
+						$('#territory').html(territories);
+					}
+				}
+			});
+		}
+	});
+
+	$(document).on('change', '#territory', function() {
+		let territory = $('#territory option:selected').text();
+		let division = '<?php echo $division; ?>';
+		if(territory != 'BE / BO / TM') {
+			$.ajax({
+				url: 'handler/get_quarters.php?territory='+territory+'&division='+division,
+				method: 'GET',
+				dataType: 'json',
+				success: function(res) {
+					if(division.toUpperCase() == 'INNOVEX') {
+						if(res.length > 0) {
+							$('#quarter_1_22_23_sove').val(res[0]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_epictal').val(res[3]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_peg_sr').val(res[1]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_quel').val(res[2]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_peg_d').val(res[4]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_citinova').val(res[5]['2022-23_qtr1_PMPT']);
+
+							$('#quarter_1_23_24_sove').val(res[0]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_epictal').val(res[3]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_peg_sr').val(res[1]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_quel').val(res[2]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_peg_d').val(res[4]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_citinova').val(res[5]['2023-24_qtr1_PMPT']);
+						} else {
+							$('#quarter_1_22_23_sove').val(0);
+							$('#quarter_1_22_23_epictal').val(0);
+							$('#quarter_1_22_23_peg_sr').val(0);
+							$('#quarter_1_22_23_quel').val(0);
+							$('#quarter_1_22_23_peg_d').val(0);
+							$('#quarter_1_22_23_citinova').val(0);
+
+							$('#quarter_1_23_24_sove').val(0);
+							$('#quarter_1_23_24_epictal').val(0);
+							$('#quarter_1_23_24_peg_sr').val(0);
+							$('#quarter_1_23_24_quel').val(0);
+							$('#quarter_1_23_24_peg_d').val(0);
+							$('#quarter_1_23_24_citinova').val(0);
+						}
+					} else {
+						if(res.length > 0) {
+							$('#quarter_1_22_23_bripca').val(res[2]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_peg_nt').val(res[3]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_recita').val(res[1]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_pari_combo').val(res[0]['2022-23_qtr1_PMPT']);
+							$('#quarter_1_22_23_peg_nt_m').val(res[4]['2022-23_qtr1_PMPT']);
+							// $('#quarter_1_22_23_citinova').val(res[5]['2022-23_qtr1_PMPT']);
+
+							$('#quarter_1_23_24_bripca').val(res[2]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_peg_nt').val(res[3]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_recita').val(res[1]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_pari_combo').val(res[0]['2023-24_qtr1_PMPT']);
+							$('#quarter_1_23_24_peg_nt_m').val(res[4]['2023-24_qtr1_PMPT']);
+							// $('#quarter_1_23_24_citinova').val(res[5]['2023-24_qtr1_PMPT']);
+						} else {
+							$('#quarter_1_22_23_bripca').val(0);
+							$('#quarter_1_22_23_peg_nt').val(0);
+							$('#quarter_1_22_23_recita').val(0);
+							$('#quarter_1_22_23_pari_combo').val(0);
+							$('#quarter_1_22_23_peg_nt_m').val(0);
+							// $('#quarter_1_22_23_citinova').val(0);
+
+							$('#quarter_1_23_24_bripca').val(0);
+							$('#quarter_1_23_24_peg_nt').val(0);
+							$('#quarter_1_23_24_recita').val(0);
+							$('#quarter_1_23_24_pari_combo').val(0);
+							$('#quarter_1_23_24_peg_nt_m').val(0);
+							// $('#quarter_1_23_24_citinova').val(0);
+						}
+					}
+				}
+			});
+		}
+	});
 });
 
 
