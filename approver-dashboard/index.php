@@ -1,6 +1,6 @@
 <?php
-	include 'handler/conn.php';
-	session_destroy();
+	// include '../handler/conn.php';
+	// session_destroy();
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +54,7 @@ footer { width: 100%; }
 					<!-- <h1><b>Atorva Purity</h1> -->
 					<p><img src="images/1logo.png"></p>
 				</div>
-					<form method="POST" action="handler/login_handler.php">
+					<form method="POST" action="../handler/approver_login_handler.php">
 				<div class="col-md-12 employedoctr">
 					<div class="row">
 						<!-- <div class="col-md-12 text-center login-employee-doctr">

@@ -21,6 +21,7 @@ include 'conn.php';
 		$payment_type = $_POST['payment_type'];
 		$remark = $_POST['remark'];
 		$payment_status = $_POST['payment_status'];
+		$pan_card_chq_updated_date = $_POST['pan_card_chq_updated_date'];
 
 		$file_name = $_FILES['reciept']['name'];
       	$file_size =$_FILES['reciept']['size'];
@@ -42,7 +43,7 @@ include 'conn.php';
 			$new_file_name = $row['reciept'];
       	}
 
-		$num="UPDATE `dr_details` SET `pan_card_received` = '$pan_card_received', `cancelled_cheque_received` = '$cancelled_cheque_received', `pan_card` = '$pan_card', `bank_name` = '$bank_name', `account_no` = '$account_no', `ifsc_code` = '$ifsc_code', `payment_done_date` = '$payment_done_date', `gross` = '$gross', `tds` = '$tds', `net_paid` = '$net_paid', `payment_reference_no` = '$payment_reference_no', `survey_completion_date` = '$survey_completion_date', `survey_completion_status` = '$survey_completion_status', `payment_type` = '$payment_type', `remark` = '$remark', `payment_status` = '$payment_status', `reciept` = '$new_file_name' WHERE `id`='$id'";
+		$num="UPDATE `dr_details` SET `pan_card_received` = '$pan_card_received', `cancelled_cheque_received` = '$cancelled_cheque_received', `pan_card` = '$pan_card', `bank_name` = '$bank_name', `account_no` = '$account_no', `ifsc_code` = '$ifsc_code', `payment_done_date` = '$payment_done_date', `gross` = '$gross', `tds` = '$tds', `net_paid` = '$net_paid', `payment_reference_no` = '$payment_reference_no', `survey_completion_date` = '$survey_completion_date', `survey_completion_status` = '$survey_completion_status', `payment_type` = '$payment_type', `remark` = '$remark', `payment_status` = '$payment_status', `reciept` = '$new_file_name', `pan_card_chq_updated_date` = '$pan_card_chq_updated_date' WHERE `id`='$id'";
 
 		$num_final=mysqli_query($conn,$num);
 

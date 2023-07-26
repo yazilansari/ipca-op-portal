@@ -177,9 +177,10 @@ include '../nav.php';
                   <tr>
                     <th>Sr.</th>
                     <th>Action </th>
+                    <th>Approval Status</th>
                     <th>Zone </th>
                     <th>Region </th>
-                    <th>HQ </th>
+                    <th>Territory </th>
                     <th>Activity Name</th>
                     <th>View Activity</th>
                     <th>Amt</th>
@@ -190,13 +191,15 @@ include '../nav.php';
                     <th>Speciality </th>
                     <th>Email </th>
                     <th>Mobile </th>
-                    <th>Approval Status</th>
                     <th>Payment Status</th>
                     <th>Pan File</th>
                     <th>Cheque File</th>
                     <th>Division</th>
                     <!-- <th>Address </th> -->
                     <th>Request Date </th>
+                    <th>Survey Completion Date </th>
+                    <th>PAN Card Chq Updated Date </th>
+                    <th>Payment Completion Date </th>
                     <!-- <th>Second Date </th> -->
                     <!-- <th>Monthly Support</th> -->
                     <!-- <th>Targetted Brand</th> -->
@@ -215,7 +218,9 @@ include '../nav.php';
 
 $division = $_SESSION['division'];
 // $results_per_page = 10;
-$sess_fetch="SELECT *, `dr_details`.`id` as id FROM `dr_details` LEFT JOIN `employees_ipca` ON `employees_ipca`.`emp_no` = `dr_details`.`emp_code` WHERE `division` = '$division' ORDER BY `dr_details`.`id` DESC";
+$sess_fetch="SELECT *, `dr_details`.`id` as `id`, `quarter_details`.`territory` FROM `dr_details`
+LEFT JOIN `employees_ipca` ON `employees_ipca`.`emp_no` = `dr_details`.`emp_code`
+LEFT JOIN `quarter_details` ON `quarter_details`.`id` = `dr_details`.`quarter_detail_id` WHERE `dr_details`.`division` = '$division' ORDER BY `dr_details`.`id` DESC";
 // $sess_final2=mysqli_query($conn,$sess_fetch);
 
 // $number_of_results = mysqli_num_rows($sess_final2);
@@ -414,8 +419,8 @@ while ($data=mysqli_fetch_array($result)) { ?>
 
     $id = $data['id'];
     $zone = $data['zone'];
-    $region = $data['region'];
-    $hq = $data['hq'];
+    $region = $data['rbm_region'];
+    $territory = $data['territory'];
     $amt = $data['monthly_support'];
     $qty = 1;
     $emp_code = $data['emp_code'];
@@ -426,6 +431,9 @@ while ($data=mysqli_fetch_array($result)) { ?>
     $speciality = $data['doc_speciality'];
     $sbu_code = $data['doc_region'];
     $request_date = $data['request_date'];
+    $survey_completion_date = $data['survey_completion_date'];
+    $pan_card_chq_updated_date = $data['pan_card_chq_updated_date'];
+    $payment_done_date = $data['payment_done_date'];
     // $second_date = $data['second_date'];
     $brands = implode(', ', explode('|', $data['brand']));
     // $monthly_support = $data['monthly_support'];
@@ -458,9 +466,10 @@ while ($data=mysqli_fetch_array($result)) { ?>
         <tr>
           <td>$num</td>
           <td>$approve_reject".''."$submit_details</td>
+          <td>$status</td>
           <td>$zone</td>
           <td>$region</td>
-          <td>$hq</td>
+          <td>$territory</td>
           <td>$brands</td>
           <td>$html</td>
           <td>$amt</td>
@@ -471,12 +480,14 @@ while ($data=mysqli_fetch_array($result)) { ?>
           <td>$speciality</td>
           <td>$email</td>
           <td>$mobile</td>
-          <td>$status</td>
           <td>$payment_status</td>
           <td><a href='../../../docs/$pan_file' download>$pan_file</a></td>
           <td><a href='../../../docs/$cheque_file' download>$cheque_file</a></td>
           <td>$division</td>
           <td>".date('d-m-Y', strtotime($request_date))."</td>
+          <td>".date('d-m-Y', strtotime($survey_completion_date))."</td>
+          <td>".date('d-m-Y', strtotime($pan_card_chq_updated_date))."</td>
+          <td>".date('d-m-Y', strtotime($payment_done_date))."</td>
           <td>$head_quarters</td>
           <td>$payment_mode</td>
           <td>$remark</td>

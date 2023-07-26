@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
   header('Location: ../../index.php?Something Went Wrong');
 }
 $id = $_GET['id'];
-$q = "SELECT `pan_card_received`, `cancelled_cheque_received`, `pan_card`, `bank_name`, `account_no`, `ifsc_code`, `payment_done_date`, `gross`, `tds`, `net_paid`, `payment_reference_no`, `survey_completion_date`, `survey_completion_status`, `payment_type`, `remark`, `payment_status`, `reciept` FROM `dr_details` WHERE `id`='$id'";
+$q = "SELECT `pan_card_received`, `cancelled_cheque_received`, `pan_card`, `bank_name`, `account_no`, `ifsc_code`, `payment_done_date`, `gross`, `tds`, `net_paid`, `payment_reference_no`, `survey_completion_date`, `survey_completion_status`, `payment_type`, `remark`, `payment_status`, `reciept`, `pan_card_chq_updated_date` FROM `dr_details` WHERE `id`='$id'";
 $result = mysqli_query($conn, $q);
 $row = mysqli_fetch_assoc($result);
 // print_r($row);
@@ -335,6 +335,12 @@ include '../nav.php';
                         </div>
                       </div>
                       <?php } ?>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="">PAN Card / Chq Updated Date <span style="color: red;">*</span></label>
+                          <input type="date" class="form-control" placeholder="PAN Card / Chq Updated Date" name="pan_card_chq_updated_date" value="<?php echo $row['pan_card_chq_updated_date']; ?>" required>
+                        </div>
+                      </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="" style="visibility: hidden;">Type of Payment <span style="color: red;">*</span></label>
