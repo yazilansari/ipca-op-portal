@@ -169,8 +169,7 @@ th, td { text-align: center; }
             <th>RBM Region</th>
             <th>Territory</th>
             <th>Speciality</th>      
-            <th>SBU Code</th>
-            <th>UniversalCode</th>
+            <th>SBU Code</th>        
             <th>Request Date</th>    
             <!-- <th>Visiting Second Date</th> -->
             <th>Monthly Support Value</th> 
@@ -379,8 +378,7 @@ th, td { text-align: center; }
                   <td><?php echo $row['rbm_region']; ?></td>
                   <td><?php echo $row['territory']; ?></td>
                   <td><?php echo $row['doc_speciality']; ?></td>        
-                  <td><?php echo $row['doc_region']; ?></td>
-                  <td><?php echo $row['doc_universal_code']; ?></td>
+                  <td><?php echo $row['doc_region']; ?></td>          
                   <td><?php echo date('d-m-Y', strtotime($row['request_date'])); ?></td>                    
                   <!-- <td><?php echo date('d-m-Y', strtotime($row['second_date'])); ?></td> -->
                   <td><?php echo $row['monthly_support']; ?></td>                    

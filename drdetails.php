@@ -204,7 +204,10 @@ footer { position: absolute; bottom: 10vh;  width: 100%; left: 0; right: 0; marg
 										<select name="territory" id="territory" required>
 											<option value="">BE / BO / TM </option>
 										</select>
-									</div><!---SBU-Code-->		
+									</div><!---SBU-Code-->	
+									<div class="col-md-6 col-sm-12 userlogin">
+										<input type="text" placeholder="Universal Code" name="doc_universal_code" required="">
+									</div>
 
 									<div class="col-md-12">
 										<div class="row">

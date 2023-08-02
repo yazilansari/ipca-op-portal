@@ -174,7 +174,7 @@ include '../nav.php';
               </div> -->
               <!-- /.card-header -->
               <div class="card-body table-responsive">
-                <table id="myTable" class="stripe row-border order-column" style="width:100%">
+                <table id="myTable" class="table table-bordered table-striped">
                   <!-- <input type="text" name="search" id="myInput" class="form-control w-25 m-2 float-right " placeholder="Search Contain"> -->
                              <?php 
                 if (isset($_SESSION['msg'])) {
